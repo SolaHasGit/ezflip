@@ -92,25 +92,6 @@ async function getEbayData(query = "iphone") {
             : 0;
 
         
-        
-            // Sold Completed Listings (only sold items)
-        
-        const soldCompletedListings = await fetchSoldCompletedDataFromEbay(query);
-        const soldCompletedPrices = soldCompletedListings
-            .map(item => parseFloat(item.sellingStatus[0].currentPrice[0].__value__))
-            .filter(price => !isNaN(price));
-
-        const averageSoldPrice = soldCompletedPrices.length
-            ? (soldCompletedPrices.reduce((sum, price) => sum + price, 0) / soldCompletedPrices.length).toFixed(2)
-            : 0;
-
-        const totalSoldCompletedListings = soldCompletedListings.length;
-
-        // Corrected sell-through rate calculation
-        const sellThroughRate = totalActiveListings > 0 
-            ? parseFloat((totalSoldCompletedListings / totalActiveListings) * 100).toFixed(2)
-            : 0;
-        
         // Return results
         return {
             averageListedPrice,
