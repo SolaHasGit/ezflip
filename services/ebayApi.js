@@ -96,9 +96,6 @@ async function getEbayData(query = "iphone") {
         return {
             averageListedPrice,
             totalActiveListings,
-            //averageSoldPrice,
-            //totalSoldCompletedListings,
-            //sellThroughRate,
             activeListings
         };
     } catch (error) {
@@ -107,4 +104,44 @@ async function getEbayData(query = "iphone") {
     }
 }
 
-module.exports = { getEbayData };
+async function getEbayImageSearch(base64Image) {
+    const token = await getAuthToken(); // Get eBay OAuth token
+    const url = 'https://api.ebay.com/buy/browse/v1/item_summary/search_by_image';
+
+    try {
+        const response = await axios.post(
+            url,
+            { image: base64Image },
+            {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json',
+                    'X-EBAY-C-MARKETPLACE-ID': 'EBAY_US'
+                }
+            }
+        );
+
+        const items = response.data.itemSummaries || [];
+        const prices = items
+            .map(item => parseFloat(item.price.value))
+            .filter(price => !isNaN(price));
+
+        const averageListedPrice = prices.length
+            ? (prices.reduce((sum, price) => sum + price, 0) / prices.length).toFixed(2)
+            : 0;
+
+        return {
+            averageListedPrice,
+            totalActiveListings: response.data.total || items.length,
+            activeListings: items
+        };
+    } catch (error) {
+        console.error("Image search error:", error.response?.data || error.message);
+        throw new Error("Failed to search by image");
+    }
+}
+
+module.exports = { 
+    getEbayData, 
+    getEbayImageSearch 
+};

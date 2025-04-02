@@ -3,8 +3,10 @@ const path = require('path');
 const fs = require('fs');
 const csv = require('csv-parser');
 
-// Path to the service account credentials
-const credentialsPath = path.join(__dirname, '../googleSheetsCredentials.json');
+const isRender = process.env.RENDER === 'true';
+const credentialsPath = isRender
+  ? '/etc/secrets/googleCredentials.json'
+  : path.join(__dirname, '../googleSheetsCredentials.json');
 
 // Config flag to toggle between service account and OAuth (for future transitions)
 const useServiceAccount = process.env.USE_SERVICE_ACCOUNT === 'true';

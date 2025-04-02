@@ -2,10 +2,11 @@ require('dotenv').config();
 
 const express = require('express');
 const cors = require('cors');
-const ebaySearchRouter = require('./routes/ebaySearch');  
 const { getAuthToken } = require('./services/ebayAuth');  
 
 const googleSheetsRouter = require('./routes/googleSheetsRoute');
+const ebayImageSearchRoutes = require('./routes/ebayImageSearch');
+const ebaySearchRouter = require('./routes/ebaySearch');  
 
 const app = express();
 const PORT = process.env.PORT || 3000;  
@@ -24,10 +25,13 @@ app.get('/test-ebay-auth', async (req, res) => {
     }
 });
 
-// Searching for listings routes
+// Searching for listings by keyword
 app.use('/api/search', ebaySearchRouter);  
 
 // Google Sheets Routes
 app.use('/api/sheets', googleSheetsRouter);
+
+// Searching for listings by image
+app.use('/api', ebayImageSearchRoutes);
 
 app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
