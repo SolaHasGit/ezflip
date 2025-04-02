@@ -3,6 +3,7 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const { getAuthToken } = require('./services/ebayAuth');  
+const path = require('path');
 
 const googleSheetsRouter = require('./routes/googleSheetsRoute');
 const ebayImageSearchRoutes = require('./routes/ebaySearchByImage');
@@ -14,6 +15,7 @@ const PORT = process.env.PORT || 3000;
 // Middleware
 app.use(cors());  // Enable Cross-Origin Resource Sharing (CORS) if needed
 app.use(express.json());  // Parse incoming JSON requests
+app.use(express.static(path.join(__dirname, 'public'))); // Testing purposes
 
 // Test route for eBay Auth token
 app.get('/test-ebay-auth', async (req, res) => {

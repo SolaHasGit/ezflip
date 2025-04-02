@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>eBay Visual Search</title>
+  <link rel="stylesheet" href="styles.css" />  <!-- CSS is loaded from public/styles.css -->
+</head>
+<body>
+  <div class="container">
+    <h1>eBay Visual Search</h1>
+    <form id="uploadForm">
+      <input type="file" id="imageInput" name="image" accept="image/*" required />
+      <button type="submit">Search</button>
+    </form>
+    <pre id="results"></pre>
+  </div>
+
+  <script>
+    const form = document.getElementById('uploadForm');
+    const results = document.getElementById('results');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const fileInput = document.getElementById('imageInput');
+      const formData = new FormData();
+      formData.append('image', fileInput.files[0]);
+
+      const response = await fetch('/api/image-search', {
+        method: 'POST',
+        body: formData
+      });
+
+      const data = await response.json();
+      results.textContent = JSON.stringify(data, null, 2);
+    });
+  </script>
+</body>
+</html>
