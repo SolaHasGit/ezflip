@@ -5,7 +5,7 @@ const cors = require('cors');
 const { getAuthToken } = require('./services/ebayAuth');  
 
 const googleSheetsRouter = require('./routes/googleSheetsRoute');
-const ebayImageSearchRoutes = require('./routes/ebayImageSearch');
+const ebayImageSearchRoutes = require('./routes/ebaySearchByImage');
 const ebaySearchRouter = require('./routes/ebaySearch');  
 
 const app = express();
