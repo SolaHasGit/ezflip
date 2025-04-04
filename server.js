@@ -15,7 +15,7 @@ const PORT = process.env.PORT || 3000;
 // Middleware
 app.use(cors());  // Enable Cross-Origin Resource Sharing (CORS) if needed
 app.use(express.json());  // Parse incoming JSON requests
-app.use(express.static(path.join(__dirname, 'public'))); // Testing purposes
+
 
 // Test route for eBay Auth token
 app.get('/test-ebay-auth', async (req, res) => {

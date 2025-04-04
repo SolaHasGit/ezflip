@@ -91,10 +91,19 @@ async function getEbayData(query = "iphone") {
             ? (activePrices.reduce((sum, price) => sum + price, 0) / activePrices.length).toFixed(2)
             : 0;
 
+        const highestPrice = activePrices.length
+            ? Math.max(...activePrices).toFixed(2)
+            : 0;
+
+        const lowestPrice = activePrices.length
+            ? Math.min(...activePrices).toFixed(2)
+            : 0;
         
         // Return results
         return {
             averageListedPrice,
+            highestPrice,
+            lowestPrice,
             totalActiveListings,
             activeListings
         };
@@ -130,10 +139,20 @@ async function getEbayImageSearch(base64Image) {
             ? (prices.reduce((sum, price) => sum + price, 0) / prices.length).toFixed(2)
             : 0;
 
+        const highestPrice = activePrices.length
+            ? Math.max(...activePrices).toFixed(2)
+            : 0;
+
+        const lowestPrice = activePrices.length
+            ? Math.min(...activePrices).toFixed(2)
+            : 0;
+
         return {
             averageListedPrice,
-            totalActiveListings: response.data.total || items.length,
-            activeListings: items
+            highestPrice,
+            lowestPrice,
+            totalActiveListings: response.data.total,
+            activeListings
         };
     } catch (error) {
         console.error("Image search error:", error.response?.data || error.message);
