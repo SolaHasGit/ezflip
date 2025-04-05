@@ -83,20 +83,20 @@ async function getEbayData(query = "iphone") {
         const activeData = await fetchActiveDataFromEbay(query);
         const activeListings = activeData.items; 
         const totalActiveListings = activeData.total;
-        const activeactivePrices = activeListings
+        const activePrices = activeListings
             .map(item => parseFloat(item.price.value))
             .filter(price => !isNaN(price));
 
-        const averageListedPrice = activeactivePrices.length
-            ? (activeactivePrices.reduce((sum, price) => sum + price, 0) / activeactivePrices.length).toFixed(2)
+        const averageListedPrice = activePrices.length
+            ? (activePrices.reduce((sum, price) => sum + price, 0) / activePrices.length).toFixed(2)
             : 0;
 
-        const highestPrice = activeactivePrices.length
-            ? Math.max(...activeactivePrices).toFixed(2)
+        const highestPrice = activePrices.length
+            ? Math.max(...activePrices).toFixed(2)
             : 0;
 
-        const lowestPrice = activeactivePrices.length
-            ? Math.min(...activeactivePrices).toFixed(2)
+        const lowestPrice = activePrices.length
+            ? Math.min(...activePrices).toFixed(2)
             : 0;
         
         // Return results
@@ -143,7 +143,7 @@ async function getEbayImageSearch(base64Image) {
             ? Math.max(...activePrices).toFixed(2)
             : 0;
 
-        const lowestPrice = activeactivePrices.length
+        const lowestPrice = activePrices.length
             ? Math.min(...activePrices).toFixed(2)
             : 0;
 

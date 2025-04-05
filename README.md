@@ -1,8 +1,7 @@
+This is the backend of ezflip
+
 start project: 
 npm install
-
-install dependencies if needed:
-npm install express axios qs dotenv cors
 
 search query: 
 http://localhost:3000/api/search?query=pillow
