@@ -83,20 +83,20 @@ async function getEbayData(query = "iphone") {
         const activeData = await fetchActiveDataFromEbay(query);
         const activeListings = activeData.items; 
         const totalActiveListings = activeData.total;
-        const activePrices = activeListings
+        const activeactivePrices = activeListings
             .map(item => parseFloat(item.price.value))
             .filter(price => !isNaN(price));
 
-        const averageListedPrice = activePrices.length
-            ? (activePrices.reduce((sum, price) => sum + price, 0) / activePrices.length).toFixed(2)
+        const averageListedPrice = activeactivePrices.length
+            ? (activeactivePrices.reduce((sum, price) => sum + price, 0) / activeactivePrices.length).toFixed(2)
             : 0;
 
-        const highestPrice = activePrices.length
-            ? Math.max(...activePrices).toFixed(2)
+        const highestPrice = activeactivePrices.length
+            ? Math.max(...activeactivePrices).toFixed(2)
             : 0;
 
-        const lowestPrice = activePrices.length
-            ? Math.min(...activePrices).toFixed(2)
+        const lowestPrice = activeactivePrices.length
+            ? Math.min(...activeactivePrices).toFixed(2)
             : 0;
         
         // Return results
@@ -131,19 +131,19 @@ async function getEbayImageSearch(base64Image) {
         );
 
         const items = response.data.itemSummaries || [];
-        const prices = items
+        const activePrices = items
             .map(item => parseFloat(item.price.value))
             .filter(price => !isNaN(price));
 
-        const averageListedPrice = prices.length
-            ? (prices.reduce((sum, price) => sum + price, 0) / prices.length).toFixed(2)
+        const averageListedPrice = activePrices.length
+            ? (activePrices.reduce((sum, price) => sum + price, 0) / activePrices.length).toFixed(2)
             : 0;
 
         const highestPrice = activePrices.length
             ? Math.max(...activePrices).toFixed(2)
             : 0;
 
-        const lowestPrice = activePrices.length
+        const lowestPrice = activeactivePrices.length
             ? Math.min(...activePrices).toFixed(2)
             : 0;
 
