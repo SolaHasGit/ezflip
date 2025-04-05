@@ -152,7 +152,7 @@ async function getEbayImageSearch(base64Image) {
             highestPrice,
             lowestPrice,
             totalActiveListings: response.data.total,
-            activeListings
+            activeListings: items
         };
     } catch (error) {
         console.error("Image search error:", error.response?.data || error.message);
