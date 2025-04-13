@@ -8,6 +8,7 @@ const path = require('path');
 const googleSheetsRouter = require('./routes/googleSheetsRoute');
 const ebayImageSearchRoutes = require('./routes/ebaySearchByImage');
 const ebaySearchRouter = require('./routes/ebaySearch');  
+const authRoutes = require('./routes/supabaseRoute');
 
 const app = express();
 const PORT = process.env.PORT || 3000;  
@@ -35,5 +36,8 @@ app.use('/api/sheets', googleSheetsRouter);
 
 // Searching for listings by image
 app.use('/api', ebayImageSearchRoutes);
+
+// 🔹 Supabase Auth
+app.use('/auth', authRoutes);
 
 app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
